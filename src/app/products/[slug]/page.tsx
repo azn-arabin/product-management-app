@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, Edit, Trash2, Calendar, Tag, ImageOff, ZoomIn } from 'lucide-react';
+import { toast } from 'sonner';
 
 export default function ProductDetailsPage() {
   const params = useParams();
@@ -33,9 +34,11 @@ export default function ProductDetailsPage() {
 
     try {
       await deleteProduct(product.id).unwrap();
+      toast.success(`Product "${product.name}" deleted successfully!`);
       router.push('/products');
     } catch (error) {
       console.error('Failed to delete product:', error);
+      toast.error('Failed to delete product. Please try again.');
     }
   };
 
@@ -69,6 +72,7 @@ export default function ProductDetailsPage() {
         <Header />
         <ErrorState
           message="Failed to load product details. The product may not exist."
+          statusCode={'status' in (error || {}) ? (error as { status: number }).status : undefined}
           onRetry={refetch}
         />
       </div>

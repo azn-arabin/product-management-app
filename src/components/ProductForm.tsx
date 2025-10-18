@@ -14,6 +14,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Loader2, X, Plus, ImageIcon } from 'lucide-react';
 import Image from 'next/image';
 import { ProductFormData, ApiError } from '@/lib/types';
+import { toast } from 'sonner';
 
 interface ProductFormProps {
   product?: Product;
@@ -98,14 +99,18 @@ export function ProductForm({ product, onSubmit, isLoading, mode }: ProductFormP
     setSubmitError('');
 
     if (!validateForm()) {
+      toast.error('Please fix the form errors');
       return;
     }
 
     try {
       await onSubmit(formData);
+      toast.success(mode === 'create' ? 'Product created successfully!' : 'Product updated successfully!');
     } catch (err: unknown) {
       const error = err as ApiError;
-      setSubmitError(error?.data?.message || 'Failed to save product. Please try again.');
+      const errorMessage = error?.data?.message || 'Failed to save product. Please try again.';
+      setSubmitError(errorMessage);
+      toast.error(errorMessage);
     }
   };
 

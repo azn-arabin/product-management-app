@@ -85,7 +85,10 @@ export const api = createApi({
         method: "POST",
         body: product,
       }),
-      invalidatesTags: [{ type: "Products", id: "LIST" }],
+      invalidatesTags: [
+        { type: "Products", id: "LIST" },
+        { type: "Products", id: "SEARCH" },
+      ],
     }),
 
     updateProduct: builder.mutation<
@@ -99,6 +102,7 @@ export const api = createApi({
       }),
       invalidatesTags: (result) => [
         { type: "Products", id: "LIST" },
+        { type: "Products", id: "SEARCH" },
         { type: "Product", id: result?.slug },
       ],
     }),
@@ -108,7 +112,10 @@ export const api = createApi({
         url: `/products/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: [{ type: "Products", id: "LIST" }],
+      invalidatesTags: [
+        { type: "Products", id: "LIST" },
+        { type: "Products", id: "SEARCH" },
+      ],
     }),
 
     // Categories

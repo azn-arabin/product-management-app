@@ -50,6 +50,7 @@ export default function EditProductPage() {
         <Header />
         <ErrorState
           message="Failed to load product. The product may not exist."
+          statusCode={'status' in (error || {}) ? (error as { status: number }).status : undefined}
           onRetry={refetch}
         />
       </div>

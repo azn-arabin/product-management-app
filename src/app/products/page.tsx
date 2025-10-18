@@ -22,6 +22,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination';
+import { toast } from 'sonner';
 
 const ITEMS_PER_PAGE = 12;
 
@@ -117,8 +118,10 @@ export default function ProductsPage() {
       setDeleteConfirmOpen(false);
       setProductToDelete(null);
       refetchProducts();
+      toast.success(`Product "${productToDelete.name}" deleted successfully!`);
     } catch (error) {
       console.error('Failed to delete product:', error);
+      toast.error('Failed to delete product. Please try again.');
     }
   };
 
@@ -205,6 +208,7 @@ export default function ProductsPage() {
         ) : error ? (
           <ErrorState
             message="Failed to load products. Please try again."
+            statusCode={'status' in error ? error.status as number : undefined}
             onRetry={refetchProducts}
           />
         ) : filteredProducts.length === 0 ? (
