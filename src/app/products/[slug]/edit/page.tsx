@@ -8,6 +8,7 @@ import { LoadingState } from '@/components/LoadingState';
 import { ErrorState } from '@/components/ErrorState';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+import { ProductFormData } from '@/lib/types';
 
 export default function EditProductPage() {
   const router = useRouter();
@@ -17,7 +18,7 @@ export default function EditProductPage() {
   const { data: product, isLoading, error, refetch } = useGetProductBySlugQuery(productSlug);
   const [updateProduct, { isLoading: isUpdating }] = useUpdateProductMutation();
 
-  const handleSubmit = async (formData: any) => {
+  const handleSubmit = async (formData: ProductFormData) => {
     if (!product) return;
     
     await updateProduct({

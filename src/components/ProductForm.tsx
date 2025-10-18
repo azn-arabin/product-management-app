@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Product } from '@/lib/types';
 import { useGetCategoriesQuery } from '@/lib/api';
@@ -13,14 +13,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Loader2, X, Plus, ImageIcon } from 'lucide-react';
 import Image from 'next/image';
-
-interface ProductFormData {
-  name: string;
-  description: string;
-  price: string;
-  categoryId: string;
-  images: string[];
-}
+import { ProductFormData, ApiError } from '@/lib/types';
 
 interface ProductFormProps {
   product?: Product;
@@ -110,7 +103,8 @@ export function ProductForm({ product, onSubmit, isLoading, mode }: ProductFormP
 
     try {
       await onSubmit(formData);
-    } catch (error: any) {
+    } catch (err: unknown) {
+      const error = err as ApiError;
       setSubmitError(error?.data?.message || 'Failed to save product. Please try again.');
     }
   };

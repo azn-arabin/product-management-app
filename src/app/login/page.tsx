@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLoginMutation } from '@/lib/api';
 import { useAppDispatch } from '@/lib/hooks';
@@ -11,6 +11,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Loader2, Package } from 'lucide-react';
+import { ApiError } from '@/lib/types';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -45,8 +46,9 @@ export default function LoginPage() {
       
       // Redirect to products page
       router.push('/products');
-    } catch (err: any) {
-      setError(err?.data?.message || 'Failed to login. Please try again.');
+    } catch (err: unknown) {
+      const error = err as ApiError;
+      setError(error?.data?.message || 'Failed to login. Please try again.');
     }
   };
 

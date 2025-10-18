@@ -97,7 +97,7 @@ export const api = createApi({
         method: "PUT",
         body: data,
       }),
-      invalidatesTags: (result, error, { id }) => [
+      invalidatesTags: (result) => [
         { type: "Products", id: "LIST" },
         { type: "Product", id: result?.slug },
       ],

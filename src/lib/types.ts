@@ -49,3 +49,17 @@ export interface ProductsQueryParams {
 export interface SearchQueryParams {
   searchedText: string;
 }
+
+export interface ProductFormData {
+  name: string;
+  description: string;
+  price: string;
+  categoryId: string;
+  images: string[];
+}
+
+export type ApiError = {
+  data?: {
+    message?: string;
+  };
+};

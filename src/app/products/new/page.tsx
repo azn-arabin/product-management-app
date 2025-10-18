@@ -6,12 +6,13 @@ import { Header } from '@/components/Header';
 import { ProductForm } from '@/components/ProductForm';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+import { ProductFormData } from '@/lib/types';
 
 export default function NewProductPage() {
   const router = useRouter();
   const [createProduct, { isLoading }] = useCreateProductMutation();
 
-  const handleSubmit = async (formData: any) => {
+  const handleSubmit = async (formData: ProductFormData) => {
     await createProduct({
       name: formData.name,
       description: formData.description,

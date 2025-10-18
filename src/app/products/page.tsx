@@ -5,12 +5,10 @@ import { useSearchProductsQuery, useGetProductsQuery, useGetCategoriesQuery, use
 import { Product } from '@/lib/types';
 import { Header } from '@/components/Header';
 import { ProductCard } from '@/components/ProductCard';
-import { LoadingState } from '@/components/LoadingState';
 import { ErrorState } from '@/components/ErrorState';
 import { EmptyState } from '@/components/EmptyState';
 import { ConfirmDialog } from '@/components/ConfirmDialog';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Search, Filter } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
